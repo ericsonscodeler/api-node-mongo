@@ -1,9 +1,10 @@
 import { Router } from 'express'
 
-import { getAllUsers } from '../controllers/users'
+import { deleteUser, getAllUsers } from '../controllers/users'
 
-import { isAuthentication } from '../middleware'
+import { isAuthenticated, isOwner } from '../middleware'
 
 export default (router: Router) => {
-  router.get('/users', isAuthentication, getAllUsers)
+  router.get('/users', isAuthenticated, getAllUsers)
+  router.delete('/users/:id', isAuthenticated, isOwner, deleteUser)
 }
